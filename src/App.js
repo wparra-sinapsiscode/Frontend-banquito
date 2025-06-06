@@ -3,6 +3,10 @@ import './App.css';
 import Login from './components/Login';
 import Dashboard from './components/Dashboard';
 import Header from './components/Header';
+import memberService from './services/memberService';
+import loanService from './services/loanService';
+import loanRequestService from './services/loanRequestService';
+import settingsService from './services/settingsService';
 
 function App() {
   const [currentUser, setCurrentUser] = useState(null);
@@ -29,6 +33,55 @@ function App() {
     setCurrentUser(user);
   };
 
+  // Cargar datos del backend cuando el usuario se autentica
+  useEffect(() => {
+    const loadInitialData = async () => {
+      if (!currentUser) return;
+      
+      try {
+        console.log('🔄 Cargando datos del backend...');
+        
+        // Cargar datos en paralelo
+        const [membersData, loansData, requestsData, settingsData] = await Promise.all([
+          memberService.getMembers(),
+          loanService.getLoans(),
+          loanRequestService.getLoanRequests(),
+          settingsService.getSettings().catch(() => null) // No fallar si no existe
+        ]);
+        
+        console.log('✅ Datos cargados:', {
+          members: membersData?.length || 0,
+          loans: loansData?.length || 0,
+          requests: requestsData?.length || 0,
+          settings: settingsData ? 'loaded' : 'default'
+        });
+        
+        setMembers(membersData || []);
+        
+        // Asegurar que los préstamos tengan la estructura esperada
+        const processedLoans = (loansData || []).map(loan => ({
+          ...loan,
+          paymentHistory: loan.payments || loan.paymentHistory || [],
+          memberName: loan.member?.name || loan.memberName || 'N/A'
+        }));
+        setLoans(processedLoans);
+        
+        setLoanRequests(requestsData || []);
+        
+        // Actualizar configuraciones si existen
+        if (settingsData) {
+          setSettings(prev => ({...prev, ...settingsData}));
+        }
+        
+      } catch (error) {
+        console.error('❌ Error cargando datos del backend:', error);
+        // Mantener datos por defecto en caso de error
+      }
+    };
+    
+    loadInitialData();
+  }, [currentUser]);
+
   const handleLogout = () => {
     setCurrentUser(null);
   };
@@ -44,9 +97,10 @@ function App() {
     
     // Calcular intereses ganados
     const totalInterestEarned = loans.reduce((total, loan) => {
-      const paidInterest = loan.paymentHistory.reduce((sum, payment) => {
-        const principalPerPayment = loan.originalAmount / (loan.totalWeeks || loan.installments);
-        const interestInPayment = Math.max(0, payment.amount - principalPerPayment);
+      const paymentHistory = loan.paymentHistory || [];
+      const paidInterest = paymentHistory.reduce((sum, payment) => {
+        const principalPerPayment = loan.originalAmount / (loan.totalWeeks || loan.installments || 1);
+        const interestInPayment = Math.max(0, (payment.amount || 0) - principalPerPayment);
         return sum + interestInPayment;
       }, 0);
       
@@ -71,7 +125,7 @@ function App() {
     
     // Calcular moras cobradas
     const totalLateFees = loans.reduce((total, loan) => {
-      return total + loan.paymentHistory.reduce((sum, payment) => {
+      return total + (loan.paymentHistory || []).reduce((sum, payment) => {
         return sum + (payment.lateFee || 0);
       }, 0);
     }, 0);
@@ -95,18 +149,19 @@ function App() {
     
     // Extraer los componentes del capital total
     const totalInterestEarned = loans.reduce((total, loan) => {
-      const paidInterest = loan.paymentHistory.reduce((sum, payment) => {
-        const principalPerPayment = loan.originalAmount / (loan.totalWeeks || loan.installments);
-        const interestInPayment = Math.max(0, payment.amount - principalPerPayment);
+      const paymentHistory = loan.paymentHistory || [];
+      const paidInterest = paymentHistory.reduce((sum, payment) => {
+        const principalPerPayment = loan.originalAmount / (loan.totalWeeks || loan.installments || 1);
+        const interestInPayment = Math.max(0, (payment.amount || 0) - principalPerPayment);
         return sum + interestInPayment;
       }, 0);
       
       const pendingInterest = (() => {
         if (loan.status === 'paid') return 0;
-        const totalPaymentAmount = (loan.weeklyPayment || loan.monthlyPayment) * (loan.totalWeeks || loan.installments);
+        const totalPaymentAmount = (loan.weeklyPayment || loan.monthlyPayment || 0) * (loan.totalWeeks || loan.installments || 1);
         const totalInterest = totalPaymentAmount - loan.originalAmount;
-        const paidInstallments = loan.paymentHistory.length;
-        const totalInstallments = loan.totalWeeks || loan.installments;
+        const paidInstallments = paymentHistory.length;
+        const totalInstallments = loan.totalWeeks || loan.installments || 1;
         const interestPerInstallment = totalInterest / totalInstallments;
         const remainingInstallments = totalInstallments - paidInstallments;
         return interestPerInstallment * remainingInstallments;
@@ -120,7 +175,7 @@ function App() {
     }, 0);
     
     const totalLateFees = loans.reduce((total, loan) => {
-      return total + loan.paymentHistory.reduce((sum, payment) => {
+      return total + (loan.paymentHistory || []).reduce((sum, payment) => {
         return sum + (payment.lateFee || 0);
       }, 0);
     }, 0);
@@ -135,7 +190,7 @@ function App() {
       .filter(loan => loan.status !== 'paid')
       .reduce((total, loan) => total + loan.originalAmount, 0);
     const totalPaidAmount = loans.reduce((total, loan) => 
-      total + loan.paymentHistory.reduce((sum, payment) => sum + payment.amount, 0), 0
+      total + (loan.paymentHistory || []).reduce((sum, payment) => sum + (payment.amount || 0), 0), 0
     );
     
     return {
