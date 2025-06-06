@@ -79,4 +79,5 @@ class MemberService {
   }
 }
 
-export default new MemberService();
+const memberService = new MemberService();
+export default memberService;

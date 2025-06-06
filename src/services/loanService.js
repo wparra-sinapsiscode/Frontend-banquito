@@ -101,4 +101,5 @@ class LoanService {
   }
 }
 
-export default new LoanService();
+const loanService = new LoanService();
+export default loanService;

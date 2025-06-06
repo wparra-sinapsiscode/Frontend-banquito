@@ -79,4 +79,5 @@ class LoanRequestService {
   }
 }
 
-export default new LoanRequestService();
+const loanRequestService = new LoanRequestService();
+export default loanRequestService;

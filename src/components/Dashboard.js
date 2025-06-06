@@ -8,7 +8,6 @@ import Reports from './Reports';
 import Settings from './Settings';
 import Calendar from './Calendar';
 import SavingsPlan from './SavingsPlan';
-import TestComponent from './TestComponent';
 
 const MemberLoansSection = ({ userLoans, getStatusInfo }) => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -743,9 +742,38 @@ const Dashboard = ({
             memberId={user.memberId}
             memberData={userMember}
             settings={settings}
-            onSavingsUpdate={(savingsData) => {
-              console.log('Nuevo plan de ahorro:', savingsData);
-              // Aquí se podría guardar en el estado si es necesario
+            onSavingsUpdate={async (savingsData) => {
+              console.log('Nuevo plan de ahorro a plazo fijo:', savingsData);
+              try {
+                // Enviar a nuevo endpoint para fixed savings
+                const fixedSavingData = {
+                  amount: savingsData.amount,
+                  termDays: savingsData.plan,
+                  annualRate: 2.00,
+                  startDate: new Date(savingsData.startDate).toISOString().split('T')[0],
+                  endDate: new Date(savingsData.endDate).toISOString().split('T')[0],
+                  maturityAmount: savingsData.maturityAmount,
+                  status: 'active'
+                };
+                
+                // Necesitaremos crear un nuevo servicio para esto
+                const response = await fetch(`http://localhost:3001/api/v1/members/${user.memberId}/fixed-savings`, {
+                  method: 'POST',
+                  headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${localStorage.getItem('authToken')}`
+                  },
+                  body: JSON.stringify(fixedSavingData)
+                });
+                
+                if (response.ok) {
+                  console.log('✅ Plan de ahorro a plazo fijo guardado en la base de datos');
+                } else {
+                  throw new Error('Error al guardar el plan de ahorro');
+                }
+              } catch (error) {
+                console.error('❌ Error guardando plan de ahorro:', error);
+              }
             }}
           />;
         }
