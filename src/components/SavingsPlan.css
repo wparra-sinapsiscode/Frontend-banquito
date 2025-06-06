@@ -1,0 +1,488 @@
+.savings-plan-container {
+  background-color: #ffffff;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  max-width: 600px;
+  margin: 20px auto;
+}
+
+.savings-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.savings-header h3 {
+  color: #333;
+  font-size: 20px;
+  margin: 0;
+}
+
+.tea-badge {
+  background-color: #1e3a8a;
+  color: white;
+  padding: 6px 16px;
+  border-radius: 20px;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.savings-info {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.savings-subtitle {
+  color: #666;
+  font-size: 16px;
+  margin: 0;
+}
+
+.savings-subtitle strong {
+  color: #333;
+  font-weight: 600;
+}
+
+.amount-display {
+  background-color: #f8f9fa;
+  padding: 16px;
+  border-radius: 8px;
+  margin-bottom: 24px;
+}
+
+.amount-label {
+  color: #666;
+  font-size: 14px;
+  margin-bottom: 8px;
+}
+
+.amount-note {
+  color: #3b82f6;
+  font-size: 13px;
+  margin-bottom: 12px;
+  text-align: center;
+  padding: 8px;
+  background-color: rgba(59, 130, 246, 0.05);
+  border-radius: 6px;
+  border: 1px solid rgba(59, 130, 246, 0.1);
+}
+
+.shares-info {
+  text-align: center;
+  margin-bottom: 12px;
+  padding: 8px;
+  background-color: rgba(16, 185, 129, 0.05);
+  border-radius: 6px;
+  border: 1px solid rgba(16, 185, 129, 0.1);
+}
+
+.shares-info small {
+  color: #059669;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.amount-value {
+  color: #333;
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.plan-selector {
+  margin-bottom: 24px;
+}
+
+.selector-label {
+  color: #666;
+  font-size: 16px;
+  margin-bottom: 16px;
+}
+
+.plan-options {
+  display: flex;
+  gap: 12px;
+  justify-content: space-between;
+}
+
+.plan-option {
+  flex: 1;
+  padding: 16px;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.plan-option:hover {
+  border-color: #1e3a8a;
+  background-color: rgba(30, 58, 138, 0.05);
+}
+
+.plan-option.selected {
+  border-color: #1e3a8a;
+  background-color: rgba(30, 58, 138, 0.1);
+}
+
+.plan-days {
+  color: #333;
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.plan-months {
+  color: #666;
+  font-size: 14px;
+}
+
+.savings-result {
+  margin-bottom: 20px;
+}
+
+.result-card {
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.result-card.selected {
+  border-color: #1e3a8a;
+  background-color: #ffffff;
+  box-shadow: 0 4px 12px rgba(30, 58, 138, 0.15);
+}
+
+.result-header {
+  margin-bottom: 16px;
+}
+
+.tea-indicator {
+  display: inline-block;
+  background-color: #1e3a8a;
+  color: white;
+  padding: 4px 12px;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.result-details {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.detail-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 20px;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  min-height: 50px;
+  background: #ffffff;
+}
+
+.detail-row.highlight {
+  background-color: rgba(30, 58, 138, 0.05);
+  padding: 18px 20px;
+  border: 1px solid rgba(30, 58, 138, 0.15);
+  border-radius: 8px;
+  margin: 4px 0;
+}
+
+.detail-row.total {
+  border: 2px solid rgba(30, 58, 138, 0.2);
+  padding: 18px 20px;
+  font-weight: 600;
+  background-color: rgba(30, 58, 138, 0.08);
+  border-radius: 8px;
+  margin: 4px 0;
+}
+
+.detail-label {
+  color: #666;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.detail-value {
+  color: #333;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.detail-value.interest {
+  color: #1e3a8a;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.view-more-btn {
+  width: 100%;
+  padding: 12px;
+  background-color: transparent;
+  border: 1px solid #1e3a8a;
+  color: #1e3a8a;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.view-more-btn:hover {
+  background-color: #1e3a8a;
+  color: white;
+}
+
+.additional-info {
+  margin-top: 20px;
+  padding: 16px;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+}
+
+.info-text {
+  color: #666;
+  font-size: 14px;
+  line-height: 1.6;
+  margin: 8px 0;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .savings-plan-container {
+    padding: 16px;
+  }
+  
+  .plan-options {
+    flex-direction: column;
+  }
+  
+  .plan-option {
+    width: 100%;
+  }
+  
+  .savings-header {
+    flex-direction: column;
+    gap: 12px;
+    text-align: center;
+  }
+}
+
+/* Nuevos estilos para configuración de monto */
+.amount-config {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  margin-top: 10px;
+}
+
+.current-amount-display {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.amount-prefix {
+  color: #666;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.current-amount-display .amount-value {
+  color: #1e3a8a;
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.config-btn {
+  background: linear-gradient(135deg, #3b82f6, #1e40af);
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+}
+
+.config-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4);
+}
+
+.amount-input-container {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.amount-input {
+  width: 200px;
+  padding: 12px 16px;
+  border: 2px solid #e5e7eb;
+  border-radius: 8px;
+  font-size: 18px;
+  font-weight: 600;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.amount-input:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.input-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.confirm-btn,
+.cancel-btn {
+  width: 40px;
+  height: 40px;
+  border: none;
+  border-radius: 50%;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.confirm-btn {
+  background-color: #10b981;
+  color: white;
+}
+
+.confirm-btn:hover {
+  background-color: #059669;
+  transform: scale(1.1);
+}
+
+.cancel-btn {
+  background-color: #ef4444;
+  color: white;
+}
+
+.cancel-btn:hover {
+  background-color: #dc2626;
+  transform: scale(1.1);
+}
+
+/* Estilos para ahorro activo */
+.active-savings-display {
+  background: linear-gradient(135deg, #f0f9ff, #e0f2fe);
+  border: 2px solid #3b82f6;
+  border-radius: 16px;
+  padding: 24px;
+  margin: 20px 0;
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.1);
+}
+
+.active-savings-display h4 {
+  margin: 0 0 16px 0;
+  color: #1e40af;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.savings-status {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.status-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(59, 130, 246, 0.1);
+}
+
+.status-row:last-child {
+  border-bottom: none;
+}
+
+.status-row span:first-child {
+  color: #64748b;
+  font-weight: 500;
+}
+
+.status-row span:last-child {
+  color: #1e293b;
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.status-row.highlight {
+  background-color: rgba(59, 130, 246, 0.05);
+  padding: 12px;
+  border-radius: 8px;
+  margin-top: 8px;
+  border: none;
+}
+
+.status-row.highlight span:last-child {
+  color: #1e40af;
+  font-size: 20px;
+}
+
+/* Botón iniciar ahorro */
+.start-saving-btn {
+  width: 100%;
+  padding: 16px;
+  margin-top: 20px;
+  background: linear-gradient(135deg, #10b981, #059669);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 18px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+}
+
+.start-saving-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
+}
+
+/* Información de fórmula */
+.formula-info {
+  background-color: #eff6ff;
+  border: 1px solid #dbeafe;
+  border-radius: 8px;
+  padding: 16px;
+  margin-top: 16px;
+}
+
+.formula-info h5 {
+  margin: 0 0 8px 0;
+  color: #1e40af;
+  font-size: 16px;
+}
+
+.formula-info p {
+  margin: 4px 0;
+  color: #475569;
+  font-family: 'Courier New', monospace;
+  font-size: 14px;
+}
